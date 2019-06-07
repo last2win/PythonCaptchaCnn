@@ -55,44 +55,11 @@ import numpy as np
 # loadData.loadData()
 
 beforePath = "/content/gdrive/My Drive/my-project3/oneModelOneArray"
-beforePath = "./oneModelOneArray"
+#beforePath = "./oneModelOneArray"
 beforePath = beforePath+"/number"
 
 
-def build(input_shape=(CAPTCHA_HEIGHT,   CAPTCHA_WIDTH, 3), num_classes=VOCAB_LENGTH):
-    model = Sequential()
 
-    model.add(Conv2D(32, (3, 3), padding='same',
-                     input_shape=input_shape))
-    model.add(Activation('relu'))
-    model.add(Conv2D(32, (3, 3)))
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
-
-    model.add(Conv2D(64, (3, 3), padding='same'))
-    model.add(Activation('relu'))
-    model.add(Conv2D(64, (3, 3)))
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
-
-    model.add(Flatten())
-    model.add(Dense(512))
-    model.add(Activation('relu'))
-    model.add(Dropout(0.5))
-    model.add(Dense(num_classes*4, activation='softmax'))
- #   model.add(Activation('softmax'))
-
-    # initiate RMSprop optimizer
-    opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)
-
-    # Let's train the model using RMSprop
-    model.compile(loss='categorical_crossentropy',
-                  optimizer=opt,
-                  metrics=['accuracy'])
-
-    return model
 
 
 def create_model():
@@ -130,8 +97,8 @@ if __name__ == '__main__':
     if 1 == 1:
         time0 = time.time()
         print("start training")
-        beforePath = beforePath+"/"+"create_model"
-        checkpoint_path = beforePath + '/logs'
+        beforePath = beforePath
+        checkpoint_path = beforePath + '/logs/'
         checkpoint_dir = os.path.dirname(checkpoint_path)
         cp_callback = keras.callbacks.ModelCheckpoint(checkpoint_path,
                                                       save_weights_only=False,
@@ -155,7 +122,7 @@ if __name__ == '__main__':
                             # steps_per_epoch=51200,  # 一轮多少个
                             # nb_epoch=5,  # 训练 nb_epoch 轮
                             steps_per_epoch=5120,  # 一轮多少个
-                            nb_epoch=2,
+                            nb_epoch=5*2,
                             workers=1,  use_multiprocessing=False,  # 单线程
                             #            nb_worker=2, pickle_safe=True,
                             # validation_data: 它可以是以下之一： 验证数据的生成器或 Sequence 实例
@@ -164,7 +131,7 @@ if __name__ == '__main__':
                             callbacks=[cp_callback,
                                        TensorBoardcallback, early_stopping], verbose=1
                             )
-        model.save(beforePath + '/model.h5')
+#        model.save(beforePath + '/model.h5')
 
         time1 = time.time()
         print("train : 总共花费 {0} s".format(time1-time0))
