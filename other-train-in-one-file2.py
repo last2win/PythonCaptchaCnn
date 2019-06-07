@@ -43,8 +43,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import random
 
-
-
+beforePath="/content/gdrive/My Drive/my-project3/other-train-in-one-file"
+beforePath="./other-train-in-one-file"
 import string
 characters = string.digits
 print(characters)
@@ -94,8 +94,7 @@ model.compile(loss='categorical_crossentropy',
 
 
 
-checkpoint_path = "/content/gdrive/My Drive/my-project3/other-train-in-one-file/cp.ckpt"
-#checkpoint_path = "training/cp.ckpt"
+checkpoint_path = beforePath+"/cp.ckpt"
 checkpoint_dir = os.path.dirname(checkpoint_path)
 cp_callback = keras.callbacks.ModelCheckpoint(checkpoint_path,
                                               save_weights_only=False,
@@ -107,7 +106,7 @@ early_stopping = keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0,
 
 
 TensorBoardcallback = keras.callbacks.TensorBoard(
-    log_dir='/content/gdrive/My Drive/my-project3/other-train-in-one-file/logs',
+    log_dir=beforePath+'/logs',
     histogram_freq=0, batch_size=32,
     write_graph=True, write_grads=False, write_images=True,
     embeddings_freq=0, embeddings_layer_names=None,
