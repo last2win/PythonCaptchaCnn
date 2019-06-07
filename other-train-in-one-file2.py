@@ -94,7 +94,7 @@ model.compile(loss='categorical_crossentropy',
 
 
 
-checkpoint_path = "/content/gdrive/My Drive/my-project3/keras-9/cp.ckpt"
+checkpoint_path = "/content/gdrive/My Drive/my-project3/other-train-in-one-file/cp.ckpt"
 #checkpoint_path = "training/cp.ckpt"
 checkpoint_dir = os.path.dirname(checkpoint_path)
 cp_callback = keras.callbacks.ModelCheckpoint(checkpoint_path,
@@ -107,7 +107,7 @@ early_stopping = keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0,
 
 
 TensorBoardcallback = keras.callbacks.TensorBoard(
-    log_dir='/content/gdrive/My Drive/my-project3/keras-9/logs',
+    log_dir='/content/gdrive/My Drive/my-project3/other-train-in-one-file/logs',
     histogram_freq=0, batch_size=32,
     write_graph=True, write_grads=False, write_images=True,
     embeddings_freq=0, embeddings_layer_names=None,

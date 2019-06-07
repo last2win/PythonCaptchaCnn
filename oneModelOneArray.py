@@ -98,7 +98,7 @@ if __name__ == '__main__':
         time0 = time.time()
         print("start training")
         beforePath = beforePath
-        checkpoint_path = beforePath + '/logs/'
+        checkpoint_path = beforePath + '/cp.ckpt'
         checkpoint_dir = os.path.dirname(checkpoint_path)
         cp_callback = keras.callbacks.ModelCheckpoint(checkpoint_path,
                                                       save_weights_only=False,
@@ -109,7 +109,7 @@ if __name__ == '__main__':
                                                        baseline=None, restore_best_weights=False)
 
         TensorBoardcallback = keras.callbacks.TensorBoard(
-            log_dir=beforePath,
+            log_dir=beforePath + '/logs/',
             histogram_freq=0, batch_size=32,
             write_graph=True, write_grads=False, write_images=True,
             embeddings_freq=0, embeddings_layer_names=None,
@@ -117,7 +117,6 @@ if __name__ == '__main__':
         )
         model = create_model()
         print(model.summary())
-        model.save(beforePath +'/model.h5')
         model.fit_generator(loadData.generateKerasYieldData(),
                             # steps_per_epoch=51200,  # 一轮多少个
                             # nb_epoch=5,  # 训练 nb_epoch 轮
@@ -131,7 +130,7 @@ if __name__ == '__main__':
                             callbacks=[cp_callback,
                                        TensorBoardcallback, early_stopping], verbose=1
                             )
-#        model.save(beforePath + '/model.h5')
+        model.save(beforePath + '/model.h5')
 
         time1 = time.time()
         print("train : 总共花费 {0} s".format(time1-time0))
