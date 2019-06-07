@@ -117,7 +117,7 @@ if __name__ == '__main__':
         )
         model = create_model()
         print(model.summary())
-#        model.save(beforePath +'/model.h5')
+        model.save(beforePath +'/model.h5')
         model.fit_generator(loadData.generateKerasYieldData(),
                             # steps_per_epoch=51200,  # 一轮多少个
                             # nb_epoch=5,  # 训练 nb_epoch 轮
