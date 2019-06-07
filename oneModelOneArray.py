@@ -127,7 +127,7 @@ if __name__ == '__main__':
                             #            nb_worker=2, pickle_safe=True,
                             # validation_data: 它可以是以下之一： 验证数据的生成器或 Sequence 实例
                             validation_data=loadData.generateKerasYieldData(),
-                            validation_steps=128,  # 验证样本数
+                            validation_steps=1280,  # 验证样本数
                             callbacks=[cp_callback,
                                        TensorBoardcallback, early_stopping], verbose=1
                             )
