@@ -54,7 +54,7 @@ import time
 import numpy as np
 # loadData.loadData()
 
-beforePath = "/content/gdrive/My Drive/my-project3/oneModelOneArray"
+beforePath = "/content/gdrive/My Drive/my-project3/oneModelMultArray"
 #beforePath = "./oneModelMultArray"
 beforePath = beforePath+"/number"
 
