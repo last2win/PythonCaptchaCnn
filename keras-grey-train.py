@@ -162,7 +162,7 @@ if __name__ == '__main__':
                 if acc >0.98:
                     break
         else:
-            x_train, y_train=loadData.generateGreyKerasData(number=1000)
+            x_train, y_train=loadData.generateGreyKerasData(number=10000)
 #            x_test, y_test=loadData.generateGreyKerasData(number=1000)
             model.fit(x_train, y_train)
             if count % 2==0:
