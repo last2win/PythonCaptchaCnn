@@ -146,7 +146,7 @@ def generateGreyKerasData(number=10**2):
  #   return data,labels
     data1=np.array(data)
     labels=np.array(labels)
-    data2=data1.reshape(data1.shape[0], CAPTCHA_WIDTH, CAPTCHA_HEIGHT,1)
+    data2=data1.reshape(data1.shape[0], CAPTCHA_HEIGHT,CAPTCHA_WIDTH,1)
     data3=data2.astype('float32')
  #   data3/=255
     return data3,labels
