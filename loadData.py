@@ -165,7 +165,6 @@ def generateKerasGreyYieldData(batch_size=32):
             data.append(img3)
      #       data.append(img3)
             labels.append(text2vec(captchaText))
-     #   return data,labels
         data1=np.array(data)
         labels=np.array(labels)
         data2=data1.reshape(data1.shape[0], CAPTCHA_HEIGHT,CAPTCHA_WIDTH,1)
@@ -232,27 +231,6 @@ def generateKerasYieldData2(batch_size=32):
         data3/=255
         yield data3,labels
 
-def generateoneModelMultArray(batch_size=32):
-    global CAPTCHA_HEIGHT,CAPTCHA_WIDTH
-    while True:
-        data = []
-        labels = [np.zeros((batch_size, n_class), dtype=np.uint8) for i in range(CAPTCHA_LENGTH)]
-        for i in range(0, batch_size):
-     #       if i % 100 == 0 and i > 0:
-     #           print("load count is ", i)
-            captchaText, captcha_image = generateCaptchaTextAndImage()
-            data.append(captcha_image)
-            for j, ch in enumerate(captchaText):
-                labels[j][i, :] = 0
-                labels[j][i, CAPTCHA_LIST.index(ch)] = 1
- #           labels.append(text2vec(captchaText))
-     #   return data,labels
-        data1=np.array(data)
-#        labels=np.array(labels)
-      #  data2=data1.reshape(data1.shape[0], CAPTCHA_WIDTH, CAPTCHA_HEIGHT,3)
-        data3=data1.astype('uint8')
-  #      data3/=255
-        yield data3,labels
 
 __NOW__=-1
 def generateKerasYieldData3(batch_size=32):
@@ -282,6 +260,78 @@ def generateKerasYieldData3(batch_size=32):
             yield data3,labels[__NOW__]
 #        yield data3,labels
 
+
+def generateoneModelMultArray(batch_size=32):
+    global CAPTCHA_HEIGHT,CAPTCHA_WIDTH
+    while True:
+        data = []
+        labels = [np.zeros((batch_size, n_class), dtype=np.uint8) for i in range(CAPTCHA_LENGTH)]
+        for i in range(0, batch_size):
+     #       if i % 100 == 0 and i > 0:
+     #           print("load count is ", i)
+            captchaText, captcha_image = generateCaptchaTextAndImage()
+            data.append(captcha_image)
+            for j, ch in enumerate(captchaText):
+                labels[j][i, :] = 0
+                labels[j][i, CAPTCHA_LIST.index(ch)] = 1
+ #           labels.append(text2vec(captchaText))
+     #   return data,labels
+        data1=np.array(data)
+#        labels=np.array(labels)
+      #  data2=data1.reshape(data1.shape[0], CAPTCHA_WIDTH, CAPTCHA_HEIGHT,3)
+        data3=data1.astype('uint8')
+  #      data3/=255
+        yield data3,labels
+
+def oneModelOneArray(batch_size=32):
+    global CAPTCHA_HEIGHT,CAPTCHA_WIDTH
+    while True:
+        data = []
+        labels = []
+        for i in range(0, batch_size):
+     #       if i % 100 == 0 and i > 0:
+     #           print("load count is ", i)
+            captchaText, captcha_image = generateCaptchaTextAndImage(width=CAPTCHA_WIDTH, height=CAPTCHA_HEIGHT)
+            img2 = convert2gray(captcha_image)
+            img3 = img2.flatten() / 255
+            data.append(img3)
+     #       data.append(img3)
+            labels.append(text2vec(captchaText))
+     #   return data,labels
+        data1=np.array(data)
+        labels=np.array(labels)
+        data2=data1.reshape(data1.shape[0], CAPTCHA_HEIGHT,CAPTCHA_WIDTH,1)
+        data3=data2.astype('float32')
+     #   data3/=255
+        yield data3,labels
+
+def oneModelOneArray2(batch_size=32):
+    global CAPTCHA_HEIGHT,CAPTCHA_WIDTH
+    while True:
+        data = []
+        labels = []
+        for i in range(0, batch_size):
+     #       if i % 100 == 0 and i > 0:
+     #           print("load count is ", i)
+            captchaText, captcha_image = generateCaptchaTextAndImage()
+            img2 = convert2gray(captcha_image)
+            img3 = img2.flatten() / 255
+            data.append(img3)
+ #           data.append(captcha_image)
+            labels.append(text2vec(captchaText))
+     #   return data,labels
+        data1=np.array(data)
+        labels=np.array(labels)
+        data2=data1.reshape(data1.shape[0], CAPTCHA_WIDTH, CAPTCHA_HEIGHT,1)
+        data3=data1.astype('float32')
+#        data3/=255
+        yield data3,labels
+
+
+
+
+
+
 if __name__ == '__main__':
  #   img3=Image.open("0071.jpg")
  #   img = loadData2(number=1)
@@ -295,7 +345,11 @@ if __name__ == '__main__':
     b = generateKerasGreyYieldData(1)
     x2, y2 = next(b)
     c = generateKerasYieldData2(1)
-#    x3, y3 = next(c)
+    x3, y3 = next(c)
     plt.imshow(x3[0])
     d = generateoneModelMultArray(1)
     x4, y4 = next(d)
+    e = oneModelOneArray(32)
+    x5, y5 = next(e)
+#    from other-train-in-one-file import generateData
+#    x6,y6=generateData(2)

@@ -103,7 +103,24 @@ def generateData(number=10**2, split=0.2):
 
     return data,labels
 
-
+def get_next_batch(batch_count=60, width=CAPTCHA_WIDTH, height=CAPTCHA_HEIGHT):
+    """
+    获取训练图片组
+    :param batch_count: default 60
+    :param width: 验证码宽度
+    :param height: 验证码高度
+    :return: batch_x, batch_yc
+    """
+    batch_x = np.zeros([batch_count, width * height])
+    batch_y = np.zeros([batch_count, CAPTCHA_LEN * len(CAPTCHA_LIST)])
+    for i in range(batch_count):    # 生成对应的训练集
+        captchaText, captcha_image = generateCaptchaTextAndImage()
+        img2 = convert2gray(captcha_image)
+        # 将图片数组一维化 同时将文本也对应在两个二维组的同一行
+        batch_x[i, :] = img2.flatten() / 255
+        batch_y[i, :] = text2vec(captchaText)  # 验证码文本的向量形式
+    # 返回该训练批次
+    return batch_x, batch_y
 
 def weight_variable(shape, w_alpha=0.01):
     """

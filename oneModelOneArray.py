@@ -40,7 +40,8 @@ from keras.layers import Conv2D, MaxPool2D, MaxPooling2D, Dropout
 from keras.layers import Dense, Flatten, Activation, Flatten
 
 import singleCaptchaGenerate
-
+singleCaptchaGenerate.CAPTCHA_HEIGHT = 60        # 验证码高度
+singleCaptchaGenerate.CAPTCHA_WIDTH = 160        # 验证码宽度
 #singleCaptchaGenerate.CAPTCHA_LIST=singleCaptchaGenerate.NUMBER+singleCaptchaGenerate.UP_CASE
 #singleCaptchaGenerate.n_class=singleCaptchaGenerate.VOCAB_LENGTH = len(singleCaptchaGenerate.CAPTCHA_LIST)
 
@@ -54,8 +55,8 @@ import time
 import numpy as np
 # loadData.loadData()
 
-beforePath = "/content/gdrive/My Drive/my-project3/oneModelOneArray"
-#beforePath = "./oneModelOneArray"
+#beforePath = "/content/gdrive/My Drive/my-project3/oneModelOneArray"
+beforePath = "./oneModelOneArray"
 beforePath = beforePath+"/number"
 
 
@@ -65,7 +66,7 @@ beforePath = beforePath+"/number"
 def create_model():
     model = keras.models.Sequential([
         Conv2D(filters=32, kernel_size=(3, 3), activation='relu',
-               input_shape=(CAPTCHA_HEIGHT,   CAPTCHA_WIDTH, 3), padding="same", strides=(1, 1)),
+               input_shape=(CAPTCHA_HEIGHT,   CAPTCHA_WIDTH, 1), padding="same", strides=(1, 1)),
         MaxPool2D(pool_size=(2, 2), strides=(2, 2)),
         #             Dropout(0.2),
         keras.layers.Dropout(0.1),
@@ -117,15 +118,18 @@ if __name__ == '__main__':
         )
         model = create_model()
         print(model.summary())
-        model.fit_generator(loadData.generateKerasYieldData(),
+#        a=loadData.oneModelOneArray(1000)
+#        x_train, y_train=next(a)
+#        model.fit(x_train,y_train,batch_size=64,epochs=10 )
+        model.fit_generator(loadData.oneModelOneArray(),
                             # steps_per_epoch=51200,  # 一轮多少个
                             # nb_epoch=5,  # 训练 nb_epoch 轮
-                            steps_per_epoch=51200,  # 一轮多少个
-                            nb_epoch=2,
+                            steps_per_epoch=5120,  # 一轮多少个
+                            nb_epoch=2*4,
                             workers=1,  use_multiprocessing=False,  # 单线程
                             #            nb_worker=2, pickle_safe=True,
                             # validation_data: 它可以是以下之一： 验证数据的生成器或 Sequence 实例
-                            validation_data=loadData.generateKerasYieldData(),
+                            validation_data=loadData.oneModelOneArray(),
                             validation_steps=1280,  # 验证样本数
                             callbacks=[cp_callback,
                                        TensorBoardcallback, early_stopping], verbose=1
