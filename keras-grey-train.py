@@ -145,7 +145,7 @@ if __name__ == '__main__':
                                                  verbose=1)
 
     count=0
-    flag=0
+    flag=-1
     while 1:
         count+=1
         if flag==1:
@@ -161,7 +161,7 @@ if __name__ == '__main__':
                 print('count is {}, Test: loss {}, acc {}'.format(count,score, acc))
                 if acc >0.98:
                     break
-        else:
+        elif flag==0:
             x_train, y_train=loadData.generateGreyKerasData(number=10000)
 #            x_test, y_test=loadData.generateGreyKerasData(number=1000)
             model.fit(x_train, y_train)
@@ -175,7 +175,19 @@ if __name__ == '__main__':
                 print('count is {}, Test: loss {}, acc {}'.format(count,score, acc))
                 if acc >0.98:
                     break
-
+        else:
+          model.fit_generator(loadData.generateKerasGreyYieldData(),
+                            # steps_per_epoch=51200,  # 一轮多少个
+                            # nb_epoch=5,  # 训练 nb_epoch 轮
+                            steps_per_epoch=51200,  # 一轮多少个
+                            nb_epoch=2*4,
+                            workers=1,  use_multiprocessing=False,  # 单线程
+                            #            nb_worker=2, pickle_safe=True,
+                            # validation_data: 它可以是以下之一： 验证数据的生成器或 Sequence 实例
+                            validation_data=loadData.generateKerasGreyYieldData(),
+                            validation_steps=1280,  # 验证样本数
+                             verbose=1
+                            )
     model.save('keras_model.h5')
 
     time1 = time.time()
