@@ -82,6 +82,7 @@ def createModel2():
                   metrics=['accuracy'])
     try:
         model.load_weights(checkpoint_path)
+        print("load checkpoint success!!!!!!!!!!!!!!!!!!!!!!!!")
     except Exception as e:
         print("no checkpoint before!!")
 

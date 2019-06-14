@@ -173,6 +173,6 @@ if __name__ == '__main__':
                                        TensorBoardcallback, early_stopping], verbose=1
                             )
         model.save(beforePath + '/model.h5')
-
+ #       model.predict
         time1 = time.time()
         print("train : 总共花费 {0} s".format(time1-time0))

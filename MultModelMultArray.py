@@ -29,7 +29,7 @@ os.environ['TZ'] = "Asia/Shanghai"
 
 tensorboard --logdir="C:/Users/peter/Google 云端硬盘/my-project3/my-keras/logs"
 
-tensorboard --logdir="G:/PythonCaptchaCnn/oneModelMultArray/number/logs"
+tensorboard --logdir="G:/PythonCaptchaCnn/MultModelMultArray/number/logs"
 
 """
 from keras.layers import Dense, Flatten, Activation, Dropout, Input
@@ -41,8 +41,8 @@ from keras.layers import Dense, Flatten, Activation, Flatten
 
 import singleCaptchaGenerate
 
-# singleCaptchaGenerate.CAPTCHA_LIST=singleCaptchaGenerate.NUMBER+singleCaptchaGenerate.UP_CASE
-#singleCaptchaGenerate.n_class=singleCaptchaGenerate.VOCAB_LENGTH = len(singleCaptchaGenerate.CAPTCHA_LIST)
+singleCaptchaGenerate.CAPTCHA_LIST=singleCaptchaGenerate.NUMBER+singleCaptchaGenerate.UP_CASE
+singleCaptchaGenerate.n_class=singleCaptchaGenerate.VOCAB_LENGTH = len(singleCaptchaGenerate.CAPTCHA_LIST)
 
 
 import loadData
@@ -54,9 +54,9 @@ import time
 import numpy as np
 # loadData.loadData()
 
-#beforePath = "/content/gdrive/My Drive/my-project3/oneModelMultArray"
-beforePath = "./oneModelMultArray"
-beforePath = beforePath+"/number"
+#beforePath = "/content/gdrive/My Drive/my-project3/MultModelMultArray"
+beforePath = "./MultModelMultArray"
+beforePath = beforePath+"/numberString"
 
 
 def createModel2():
@@ -71,30 +71,37 @@ def createModel2():
 
     x = Flatten()(x)
     x = Dropout(0.25)(x)
-    x = [Dense(VOCAB_LENGTH, activation='softmax', name='c%d' % (i+1))(x)
-         for i in range(4)]
+    x=Dense(VOCAB_LENGTH, activation='softmax')(x)
+ #   x = [Dense(VOCAB_LENGTH, activation='softmax', name='c%d' % (i+1))(x)
+  #       for i in range(4)]
 
     model = Model(input=input_tensor, output=x)
+
 
     model.compile(loss='categorical_crossentropy',
                   optimizer='adadelta',
                   metrics=['accuracy'])
-    '''
     try:
         model.load_weights(checkpoint_path)
     except Exception as e:
         print("no checkpoint before!!")
-    '''
+
     return model
-
-
+'''
+import matplotlib.pyplot as plt
+a=loadData.generateoneModelMultArray(1)
+x,y=next(a)
+img=x[0]
+plt.imshow(img)
+plt.show()
+'''
 if __name__ == '__main__':
 
-    if 1 == 1:
+    for i in range(0,4):
         time0 = time.time()
         print("start training")
-        beforePath = beforePath  # +"/"+"create_model"
-        checkpoint_path = beforePath + '/cp.ckpt'
+        beforePath = beforePath 
+        checkpoint_path = beforePath+ '/cp.ckpt'
         checkpoint_dir = os.path.dirname(checkpoint_path)
         cp_callback = keras.callbacks.ModelCheckpoint(checkpoint_path,
                                                       save_weights_only=False,
@@ -105,7 +112,7 @@ if __name__ == '__main__':
                                                        baseline=None, restore_best_weights=False)
 
         TensorBoardcallback = keras.callbacks.TensorBoard(
-            log_dir=beforePath + '/logs/',
+            log_dir=beforePath+ '/logs/',
             histogram_freq=0, batch_size=32,
             write_graph=True, write_grads=False, write_images=True,
             embeddings_freq=0, embeddings_layer_names=None,
@@ -117,7 +124,7 @@ if __name__ == '__main__':
                             # steps_per_epoch=51200,  # 一轮多少个
                             # nb_epoch=5,  # 训练 nb_epoch 轮
                             steps_per_epoch=5120,  # 一轮多少个
-                            nb_epoch=2,
+                            nb_epoch=8,
                             workers=1,  use_multiprocessing=False,  # 单线程
                             #            nb_worker=2, pickle_safe=True,
                             # validation_data: 它可以是以下之一： 验证数据的生成器或 Sequence 实例
@@ -127,6 +134,6 @@ if __name__ == '__main__':
                                        TensorBoardcallback, early_stopping], verbose=1
                             )
         model.save(beforePath + '/model.h5')
-
+        
         time1 = time.time()
         print("train : 总共花费 {0} s".format(time1-time0))
