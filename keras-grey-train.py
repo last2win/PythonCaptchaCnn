@@ -98,7 +98,7 @@ if __name__ == '__main__':
                      activation='relu', 
                      
                      input_shape=(
-       CAPTCHA_WIDTH,  CAPTCHA_HEIGHT, 1),
+         CAPTCHA_HEIGHT, CAPTCHA_WIDTH,1),
 #padding：补0策略，为“valid”, “same” 。“valid”代表只进行有效的卷积，即对边界数据不处理。
 #“same”代表保留边界处的卷积结果，通常会导致输出shape与输入shape相同。
     padding='same',     # Padding method
