@@ -145,7 +145,7 @@ if __name__ == '__main__':
 
         early_stopping = keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0,
                                                        patience=5, verbose=0, mode='auto',
-                                                       baseline=None, restore_best_weights=False)
+                                                       baseline=None)
 
         TensorBoardcallback = keras.callbacks.TensorBoard(
             log_dir=beforePath + '/logs/',
