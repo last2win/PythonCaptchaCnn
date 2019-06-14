@@ -357,11 +357,19 @@ def oneModelOneArray2(batch_size=32):
 
 
 if __name__ == '__main__':
- #   img3=Image.open("0071.jpg")
- #   img = loadData2(number=1)
- #   img2 = convert2gray(img)
-#    x_train, x_test, y_train, y_test=loadData(number=1)
+    
+    x_train, x_test, y_train, y_test=loadData(number=1)
     import matplotlib.pyplot as plt
+    img3=Image.open("./img/0285.jpg")
+#    plt.imshow(img3)
+#    plt.show()
+    img = loadData2(number=1)
+    plt.imshow(img)
+    plt.show()
+    img2 = convert2gray(img)
+    plt.imshow(img2, cmap='gray')
+    plt.show()
+    
     x_train, y_train = generateData(number=1)
     data,labels=generateGreyKerasData(number=5)
     a = generateKerasYieldData(1)
@@ -370,7 +378,7 @@ if __name__ == '__main__':
     x2, y2 = next(b)
     c = generateKerasYieldData2(1)
     x3, y3 = next(c)
-    plt.imshow(x3[0])
+#    plt.imshow(x3[0])
     d = generateoneModelMultArray(1)
     x4, y4 = next(d)
     e = oneModelOneArray(32)
