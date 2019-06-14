@@ -80,6 +80,11 @@ def createModel2():
     model.compile(loss='categorical_crossentropy',
                   optimizer='adadelta',
                   metrics=['accuracy'])
+    try:
+        model.load_weights(checkpoint_path)
+    except Exception as e:
+        print("no checkpoint before!!")
+
     return model
 
 
