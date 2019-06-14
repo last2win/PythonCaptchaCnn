@@ -231,6 +231,29 @@ def generateKerasYieldData2(batch_size=32):
         data3=data1.astype('float32')
         data3/=255
         yield data3,labels
+
+def generateoneModelMultArray(batch_size=32):
+    global CAPTCHA_HEIGHT,CAPTCHA_WIDTH
+    while True:
+        data = []
+        labels = [np.zeros((batch_size, n_class), dtype=np.uint8) for i in range(CAPTCHA_LENGTH)]
+        for i in range(0, batch_size):
+     #       if i % 100 == 0 and i > 0:
+     #           print("load count is ", i)
+            captchaText, captcha_image = generateCaptchaTextAndImage()
+            data.append(captcha_image)
+            for j, ch in enumerate(captchaText):
+                labels[j][i, :] = 0
+                labels[j][i, CAPTCHA_LIST.index(ch)] = 1
+ #           labels.append(text2vec(captchaText))
+     #   return data,labels
+        data1=np.array(data)
+#        labels=np.array(labels)
+      #  data2=data1.reshape(data1.shape[0], CAPTCHA_WIDTH, CAPTCHA_HEIGHT,3)
+        data3=data1.astype('float32')
+  #      data3/=255
+        yield data3,labels
+
 __NOW__=-1
 def generateKerasYieldData3(batch_size=32):
     global CAPTCHA_HEIGHT,CAPTCHA_WIDTH,__NOW__
@@ -250,7 +273,7 @@ def generateKerasYieldData3(batch_size=32):
         data1=np.array(data)
 #        labels=np.array(labels)
       #  data2=data1.reshape(data1.shape[0], CAPTCHA_WIDTH, CAPTCHA_HEIGHT,3)
-        data3=data1.astype('float32')
+        data3=data1.astype('uint8')
         data3/=255
         if __NOW__==-1:
             print("error i!")
@@ -274,5 +297,5 @@ if __name__ == '__main__':
     c = generateKerasYieldData2(1)
     x3, y3 = next(c)
     plt.imshow(x3[0])
-    d = generateKerasYieldData3(2,0)
+    d = generateoneModelMultArray(1)
     x4, y4 = next(d)

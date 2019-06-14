@@ -93,7 +93,6 @@ model.compile(loss='categorical_crossentropy',
               metrics=['accuracy'])
 
 
-
 checkpoint_path = beforePath+"/cp.ckpt"
 checkpoint_dir = os.path.dirname(checkpoint_path)
 cp_callback = keras.callbacks.ModelCheckpoint(checkpoint_path,
