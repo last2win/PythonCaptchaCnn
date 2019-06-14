@@ -145,7 +145,7 @@ if __name__ == '__main__':
                                                  verbose=1)
 
     count=0
-    flag=-1
+    flag=0
     while 1:
         count+=1
         if flag==1:
