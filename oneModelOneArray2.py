@@ -42,8 +42,8 @@ from keras.layers import Dense, Flatten, Activation, Flatten
 import singleCaptchaGenerate
 #singleCaptchaGenerate.CAPTCHA_HEIGHT = 60        # 验证码高度
 #singleCaptchaGenerate.CAPTCHA_WIDTH = 160        # 验证码宽度
-#singleCaptchaGenerate.CAPTCHA_LIST=singleCaptchaGenerate.NUMBER+singleCaptchaGenerate.UP_CASE
-#singleCaptchaGenerate.n_class=singleCaptchaGenerate.VOCAB_LENGTH = len(singleCaptchaGenerate.CAPTCHA_LIST)
+singleCaptchaGenerate.CAPTCHA_LIST=singleCaptchaGenerate.NUMBER+singleCaptchaGenerate.UP_CASE
+singleCaptchaGenerate.n_class=singleCaptchaGenerate.VOCAB_LENGTH = len(singleCaptchaGenerate.CAPTCHA_LIST)
 from  singleCaptchaGenerate import *
 
 import loadData

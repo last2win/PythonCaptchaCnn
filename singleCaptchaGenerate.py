@@ -38,6 +38,7 @@ def randomCaptchaText(char_set=CAPTCHA_LIST, captcha_size=CAPTCHA_LENGTH):
     :param captcha_size: 字符串长度
     :return: 字符串
     """
+#    print(char_set)
     captcha_text = [random.choice(char_set) for _ in range(captcha_size)]
     return ''.join(captcha_text)
 
@@ -52,7 +53,7 @@ def generateCaptchaText(width=CAPTCHA_WIDTH, height=CAPTCHA_HEIGHT, saveDir="./i
     """
     image = ImageCaptcha(width=width, height=height)
     # 验证码文本
-    captchaText = randomCaptchaText()
+    captchaText = randomCaptchaText(char_set=CAPTCHA_LIST, captcha_size=CAPTCHA_LENGTH)
     captcha = image.generate(captchaText)
     # 保存
     if save:
@@ -73,7 +74,7 @@ def generateCaptchaTextAndImage(width=CAPTCHA_WIDTH, height=CAPTCHA_HEIGHT, save
     """
     image = ImageCaptcha(width=width, height=height)
     # 验证码文本
-    captchaText = randomCaptchaText()
+    captchaText = randomCaptchaText(char_set=CAPTCHA_LIST, captcha_size=CAPTCHA_LENGTH)
     captcha = image.generate(captchaText)
 
     captcha_image = Image.open(captcha)

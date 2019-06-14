@@ -41,8 +41,8 @@ from keras.layers import Dense, Flatten, Activation, Flatten
 
 import singleCaptchaGenerate
 
-#singleCaptchaGenerate.CAPTCHA_LIST=singleCaptchaGenerate.NUMBER+singleCaptchaGenerate.UP_CASE
-#singleCaptchaGenerate.n_class=singleCaptchaGenerate.VOCAB_LENGTH = len(singleCaptchaGenerate.CAPTCHA_LIST)
+singleCaptchaGenerate.CAPTCHA_LIST=singleCaptchaGenerate.NUMBER+singleCaptchaGenerate.UP_CASE
+singleCaptchaGenerate.n_class=singleCaptchaGenerate.VOCAB_LENGTH = len(singleCaptchaGenerate.CAPTCHA_LIST)
 
 
 import loadData
@@ -56,7 +56,7 @@ import numpy as np
 
 #beforePath = "/content/gdrive/My Drive/my-project3/oneModelMultArray"
 beforePath = "./oneModelMultArray"
-beforePath = beforePath+"/number"
+beforePath = beforePath+"/numberString"
 
 
 def createModel2():
@@ -86,8 +86,14 @@ def createModel2():
         print("no checkpoint before!!")
 
     return model
-
-
+'''
+import matplotlib.pyplot as plt
+a=loadData.generateoneModelMultArray(1)
+x,y=next(a)
+img=x[0]
+plt.imshow(img)
+plt.show()
+'''
 if __name__ == '__main__':
 
     if 1 == 1:
