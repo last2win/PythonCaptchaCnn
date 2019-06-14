@@ -164,7 +164,7 @@ if __name__ == '__main__':
         elif flag==0:
             x_train, y_train=loadData.generateGreyKerasData(number=10000)
 #            x_test, y_test=loadData.generateGreyKerasData(number=1000)
-            model.fit(x_train, y_train)
+            model.fit(x_train, y_train, verbose=0)
             if count % 2==0:
                 print(datetime.now().strftime('%c'), 'count is ', count)
       #      model.fit(x_train,y_train,batch_size=64,epochs=10,validation_data=[x_test,y_test])

@@ -10,6 +10,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from singleCaptchaGenerate import CAPTCHA_LENGTH, VOCAB_LENGTH, CAPTCHA_LIST,CAPTCHA_HEIGHT,CAPTCHA_WIDTH
 from singleCaptchaGenerate import generateCaptchaTextAndImage
+from singleCaptchaGenerate import *
 from PIL import Image
 n_class=VOCAB_LENGTH
 
@@ -283,7 +284,30 @@ def generateoneModelMultArray(batch_size=32):
   #      data3/=255
         yield data3,labels
 
+
+
 def oneModelOneArray(batch_size=32):
+    global CAPTCHA_LIST ,n_class
+    X = np.zeros((batch_size, CAPTCHA_HEIGHT, CAPTCHA_WIDTH, 3), dtype=np.uint8)
+    y = np.zeros((batch_size, 40), dtype=np.uint8)
+#    generator = ImageCaptcha(width=width, height=height)
+    while True:
+        for i in range(batch_size):
+            captchaText, captcha_image = generateCaptchaTextAndImage(width=CAPTCHA_WIDTH, height=CAPTCHA_HEIGHT)
+#            random_str = captchaText
+            X[i] = captcha_image
+            for j, c in enumerate(captchaText):
+                index = j * n_class + CAPTCHA_LIST.index(c)
+                y[i][index] = 1
+  #          for j, ch in enumerate(random_str):
+   #             y[i]
+ #               y[j][i, :] = 0
+ #               y[j][i, characters.find(ch)] = 1
+        yield X, y
+
+
+
+def oneModelOneArray3(batch_size=32):
     global CAPTCHA_HEIGHT,CAPTCHA_WIDTH
     while True:
         data = []
