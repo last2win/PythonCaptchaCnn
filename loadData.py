@@ -250,7 +250,7 @@ def generateoneModelMultArray(batch_size=32):
         data1=np.array(data)
 #        labels=np.array(labels)
       #  data2=data1.reshape(data1.shape[0], CAPTCHA_WIDTH, CAPTCHA_HEIGHT,3)
-        data3=data1.astype('float32')
+        data3=data1.astype('uint8')
   #      data3/=255
         yield data3,labels
 
@@ -295,7 +295,7 @@ if __name__ == '__main__':
     b = generateKerasGreyYieldData(1)
     x2, y2 = next(b)
     c = generateKerasYieldData2(1)
-    x3, y3 = next(c)
+#    x3, y3 = next(c)
     plt.imshow(x3[0])
     d = generateoneModelMultArray(1)
     x4, y4 = next(d)

@@ -148,7 +148,7 @@ model.fit_generator(gen(),
                     # steps_per_epoch=51200,  # 一轮多少个
                     # nb_epoch=5,  # 训练 nb_epoch 轮
                     steps_per_epoch=51200 // 10,  # 一轮多少个
-                    nb_epoch=5*2,
+                    nb_epoch=2,
                     workers=1,  use_multiprocessing=False,  # 单线程
                     #            nb_worker=2, pickle_safe=True,
                     # validation_data: 它可以是以下之一： 验证数据的生成器或 Sequence 实例
