@@ -29,7 +29,7 @@ os.environ['TZ'] = "Asia/Shanghai"
 
 tensorboard --logdir="C:/Users/peter/Google 云端硬盘/my-project3/my-keras/logs"
 
-tensorboard --logdir="G:/PythonCaptchaCnn/oneModelMultArray/number/logs"
+tensorboard --logdir="G:/PythonCaptchaCnn/oneModelMultArray/numberString/logs"
 
 """
 from keras.layers import Dense, Flatten, Activation, Dropout, Input

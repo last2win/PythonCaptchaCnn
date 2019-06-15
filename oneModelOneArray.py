@@ -32,12 +32,6 @@ os.environ['TZ'] = "Asia/Shanghai"
 tensorboard --logdir="G:/PythonCaptchaCnn/oneModelOneArray/number/logs"
 
 """
-from keras.layers import Dense, Flatten, Activation, Dropout, Input
-from keras.layers import Conv2D, MaxPool2D, MaxPooling2D, Convolution2D
-from keras.models import Sequential, Model
-from keras.models import Sequential
-from keras.layers import Conv2D, MaxPool2D, MaxPooling2D, Dropout
-from keras.layers import Dense, Flatten, Activation, Flatten
 
 import singleCaptchaGenerate
 #singleCaptchaGenerate.CAPTCHA_HEIGHT = 60        # 验证码高度
@@ -48,6 +42,17 @@ from  singleCaptchaGenerate import *
 
 import loadData
 from loadData import CAPTCHA_HEIGHT, CAPTCHA_WIDTH, VOCAB_LENGTH
+
+
+
+from keras.layers import Dense, Flatten, Activation, Dropout, Input
+from keras.layers import Conv2D, MaxPool2D, MaxPooling2D, Convolution2D
+from keras.models import Sequential, Model
+from keras.models import Sequential
+from keras.layers import Conv2D, MaxPool2D, MaxPooling2D, Dropout
+from keras.layers import Dense, Flatten, Activation, Flatten
+
+
 import os
 import tensorflow as tf
 import keras
