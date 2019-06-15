@@ -13,7 +13,7 @@ from keras.layers import Conv2D, MaxPool2D, MaxPooling2D, Dropout
 from keras.layers import Dense, Flatten, Activation, Flatten
 from keras.models import load_model
 import singleCaptchaGenerate
-
+from PIL import Image
 
 import loadData
 from loadData import CAPTCHA_HEIGHT, CAPTCHA_WIDTH, VOCAB_LENGTH
@@ -29,6 +29,7 @@ def testoneModelMultArray():
     beforePath = beforePath+"/number"
     checkpoint_path = beforePath+ '/cp.ckpt'
     model=load_model(checkpoint_path)
+    img3=Image.open("./img/0285.jpg")
     predict=model.predict(x_test)
     predict=np.array(predict)
     predict3=np.int_(predict)
@@ -40,4 +41,11 @@ def testoneModelMultArray():
 
 if __name__ == '__main__':
  #   testoneModelMultArray()
-    
+    beforePath = "./oneModelMultArray"
+    beforePath = beforePath+"/number"
+    checkpoint_path = beforePath+ '/cp.ckpt'
+    model=load_model(checkpoint_path)
+    img3=Image.open("./img/0285.jpg")
+    data=np.array(img3)
+    data2=data.reshape(1, CAPTCHA_WIDTH, CAPTCHA_HEIGHT,3)
+    predict=model.predict(data)
