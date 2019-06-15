@@ -45,7 +45,7 @@ if __name__ == '__main__':
     beforePath = beforePath+"/number"
     checkpoint_path = beforePath+ '/cp.ckpt'
     model=load_model(checkpoint_path)
-    img3=Image.open("./img/0285.jpg")
+    img3=Image.open("./img/0862.jpg")
     data=np.array(img3)
-    data2=data.reshape(1, CAPTCHA_WIDTH, CAPTCHA_HEIGHT,3)
-    predict=model.predict(data)
+    data2=data.reshape(1,CAPTCHA_HEIGHT, CAPTCHA_WIDTH,3)
+    predict=model.predict(data2)

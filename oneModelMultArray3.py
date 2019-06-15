@@ -56,10 +56,10 @@ import numpy as np
 
 #beforePath = "/content/gdrive/My Drive/my-project3/oneModelMultArray"
 beforePath = "./oneModelMultArray"
-beforePath = beforePath+"/String"
+beforePath = beforePath+"/String2"
 
 
-def createModel2():
+def createModel():
     input_tensor = Input((CAPTCHA_HEIGHT,   CAPTCHA_WIDTH, 3))
 
     x = input_tensor
@@ -75,6 +75,48 @@ def createModel2():
          for i in range(4)]
 
     model = Model(input=input_tensor, output=x)
+
+
+    model.compile(loss='categorical_crossentropy',
+                  optimizer='adadelta',
+                  metrics=['accuracy'])
+    try:
+        model.load_weights(checkpoint_path)
+        print("load checkpoint success!!!!!!!!!!!!!!!!!!!!!!!!")
+    except Exception as e:
+        print("no checkpoint before!!")
+
+    return model
+
+
+def createModel2():
+    input_tensor = Input((CAPTCHA_HEIGHT,   CAPTCHA_WIDTH, 3))
+
+    x = input_tensor
+
+    for i in range(4):
+        x = Convolution2D(32*2**i, 3, 3, activation='relu')(x)
+        x = Convolution2D(32*2**i, 3, 3, activation='relu')(x)
+        x = MaxPooling2D((2, 2))(x)
+
+    x = Flatten()(x)
+    x = Dropout(0.25)(x)
+    x1=Dense(512, activation='relu',name="x1")(x)
+    x2=Dense(512, activation='relu',name="x2")(x)
+    x3=Dense(512, activation='relu',name="x3")(x)
+    x4=Dense(512, activation='relu',name="x4")(x)
+
+    x1=Dense(VOCAB_LENGTH, activation='softmax',name="x1_out")(x1)
+    x2=Dense(VOCAB_LENGTH, activation='softmax',name="x2_out")(x2)
+    x3=Dense(VOCAB_LENGTH, activation='softmax',name="x3_out")(x3)
+    x4=Dense(VOCAB_LENGTH, activation='softmax',name="x4_out")(x4)
+   
+    output=[x1,x2,x3,x4]
+
+ #   x = [Dense(VOCAB_LENGTH, activation='softmax', name='c%d' % (i+1))(x)
+ #        for i in range(4)]
+
+    model = Model(input=input_tensor, output=output)
 
 
     model.compile(loss='categorical_crossentropy',
